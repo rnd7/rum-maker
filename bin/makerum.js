@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-require("@babel/register")
-import("../src/index.js")
+
+//require("@babel/register")
 console.log('@makeRum')
-process.title = 'makeRum';
