@@ -1,4 +1,5 @@
 console.log('@rumMaker index')
+
 //import * as babel from '@babel/core'
 import fs from 'fs'
 const pkg = JSON.parse(fs.readFileSync('./package.json', "utf8"))
