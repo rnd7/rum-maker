@@ -61,7 +61,6 @@ const jobs = [
       external,
       plugins: [
         babel({
-          ignore: [],
           presets: [
             "@babel/preset-env"
           ],
@@ -91,7 +90,6 @@ const jobs = [
   },
   {
     in:{
-      ignore: [],
       input: filename,
       external: external,
       plugins: [
