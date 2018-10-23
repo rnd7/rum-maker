@@ -79,12 +79,14 @@ const jobs = [
       {
         file: pkg.main,
         format: 'cjs',
-        sourceMap: true
+        sourceMap: true,
+        exports: 'named'
       },
       {
         file: pkg.module,
         format: 'es',
-        sourceMap: true
+        sourceMap: true,
+        exports: 'named'
       }
     ]
   },
@@ -112,7 +114,8 @@ const jobs = [
       {
         file: pkg.browser,
         format: 'cjs',
-        sourceMap: true
+        sourceMap: true,
+        exports: 'named'
       }
     ]
   }
