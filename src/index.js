@@ -1,4 +1,4 @@
-console.log('@rum-maker')
+console.log('@rumMaker index')
 //import * as babel from '@babel/core'
 import fs from 'fs'
 const pkg = JSON.parse(fs.readFileSync('./package.json', "utf8"))
@@ -15,7 +15,9 @@ const DEFAULTS = {
   ]
 }
 const opts = Object.assign({}, DEFAULTS)
-if (pkg.rumMaker) Object.assign(opts, pkg.rumMaker)
+if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker)
+else throw "No rum.maker entry within package.json."
+
 console.log(opts)
 
 const filename = opts.tasks[0].entry

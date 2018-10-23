@@ -2,23 +2,12 @@
   "name": "@rnd7/rum-maker",
   "version": "1.0.2",
   "description": "Rumbullion ES6 build system",
-  "main": "./dist/cjs.js",
-  "browser": "./dist/browser.js",
-  "module": "./dist/module.js",
-  "rumMaker": {
-    "entries": [
-      "./src/index.js"
-    ]
-  },
-  "engines": {
-    "node": ">0.11.9"
-  },
+  "main": "./src/index.js",
   "bin": {
-    "makerum": "bin/makerum.js"
+    "make-rum": "./bin/make-rum.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "makerum": "node --require @babel/register ./src/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -37,7 +26,16 @@
     "url": "https://github.com/rnd7/rum-maker/issues"
   },
   "homepage": "https://github.com/rnd7/rum-maker#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "rollup": "^0.66.6",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0"
+  },
   "babel": {
     "presets": [
       "@babel/preset-env"
