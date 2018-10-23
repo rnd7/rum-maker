@@ -52,6 +52,9 @@ import resolve from 'rollup-plugin-node-resolve'
 let external = []
 if (pkg.devDependencies) external.push(...Object.keys(pkg.devDependencies))
 if (pkg.dependencies) external.push(...Object.keys(pkg.dependencies))
+const browser = !!pkg.browser
+const main = !!pkg.main //cjs module
+const module = !!pkg.module // esm module
 
 import * as rollup from 'rollup'
 const jobs = [
@@ -67,7 +70,8 @@ const jobs = [
           babelrc: false,
           configFile: false,
           externalHelpers: false,
-          runtimeHelpers: true
+          runtimeHelpers: true,
+          sourceMaps: true
         }),
         resolve({
           preferBuiltins: true
@@ -79,14 +83,14 @@ const jobs = [
       {
         file: pkg.main,
         format: 'cjs',
-        sourceMap: true,
-        exports: 'named'
+        sourcemap: true,
+        sourcemapFile: pkg.main+'.map'
       },
       {
         file: pkg.module,
         format: 'es',
-        sourceMap: true,
-        exports: 'named'
+        sourcemap: true,
+        sourcemapFile: pkg.module+'.map'
       }
     ]
   },
@@ -102,7 +106,8 @@ const jobs = [
           babelrc: false,
           configFile: false,
           externalHelpers: false,
-          runtimeHelpers: true
+          runtimeHelpers: true,
+          sourceMaps: true
         }),
         resolve({
           browser: true
@@ -114,8 +119,8 @@ const jobs = [
       {
         file: pkg.browser,
         format: 'cjs',
-        sourceMap: true,
-        exports: 'named'
+        sourcemap: true,
+        sourcemapFile: pkg.browser+'.map'
       }
     ]
   }
@@ -132,9 +137,10 @@ function build() {
       //console.log(bundle.exports); // an array of names exported by the entry point
       //console.log(bundle.modules); // an array of module objects
 
+        console.log(bundle)
       job.out.forEach((out) => {
         bundle.generate(out).then((gen)=>{
-          console.log(gen)
+        //  console.log(gen)
           if (out.file) bundle.write(out);
         })
       })
