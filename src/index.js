@@ -16,7 +16,7 @@ const DEFAULTS = {
 }
 const opts = Object.assign({}, DEFAULTS)
 if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker)
-else throw "No rum.maker entry within package.json."
+//else throw "No rum.maker entry within package.json."
 
 console.log(opts)
 
@@ -48,12 +48,16 @@ import resolve from 'rollup-plugin-node-resolve'
 //import "@babel/polyfill";
 
 
+let external = []
+if (pkg.devDependencies) external = [...external, ...Object.keys(pkg.devDependencies)]
+if (pkg.dependencies) external = [...external, ...Object.keys(pkg.dependencies)]
+
 import * as rollup from 'rollup'
 const jobs = [
   {
     in:{
       input: filename,
-      external: [].concat(Object.keys(pkg.dependencies), Object.keys(pkg.devDependencies)),
+      external: external,
       plugins: [
         babel({
           presets: [
@@ -86,7 +90,7 @@ const jobs = [
   {
     in:{
       input: filename,
-      external: [].concat(Object.keys(pkg.dependencies), Object.keys(pkg.devDependencies)),
+      external: external,
       plugins: [
         babel({
           presets: [
@@ -127,7 +131,7 @@ function build() {
       job.out.forEach((out) => {
         bundle.generate(out).then((gen)=>{
           console.log(gen)
-          bundle.write(out);
+          if (out.file) bundle.write(out);
         })
       })
     })

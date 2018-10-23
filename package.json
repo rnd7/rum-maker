@@ -2,7 +2,7 @@
   "name": "@rnd7/rum-maker",
   "version": "1.0.4",
   "description": "Rumbullion ES6 build system",
-  "main": "src/index.js",
+  "main": "dist/rum-maker.js",
   "engines": {
     "node": ">0.11.9"
   },

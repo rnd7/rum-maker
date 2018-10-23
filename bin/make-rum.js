@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
 require("@babel/register")
-import '../src/index.js'
+require('../src/index.js')
 console.log('@make-rum')
