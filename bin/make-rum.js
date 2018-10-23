@@ -7,7 +7,7 @@ require("@babel/register")({
   // an array of strings to be explicitly matched or a regex / glob
   //exclude: ["node_modules"],
   //ignore: [],
-  only: ["./src/index.js"],
+  only: ["./src/index.js","./**/node_modules/@rnd7/rum-maker/src/index.js"],
   presets: [
     "@babel/preset-env"
   ],
