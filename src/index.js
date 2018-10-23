@@ -50,15 +50,15 @@ import resolve from 'rollup-plugin-node-resolve'
 
 
 let external = []
-if (pkg.devDependencies) external = [...external, ...Object.keys(pkg.devDependencies)]
-if (pkg.dependencies) external = [...external, ...Object.keys(pkg.dependencies)]
+if (pkg.devDependencies) external.push(...Object.keys(pkg.devDependencies))
+if (pkg.dependencies) external.push(...Object.keys(pkg.dependencies))
 
 import * as rollup from 'rollup'
 const jobs = [
   {
     in:{
       input: filename,
-      external: external,
+      external,
       plugins: [
         babel({
           presets: [
