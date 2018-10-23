@@ -1,6 +1,6 @@
 {
   "name": "@rnd7/rum-maker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Rumbullion ES6 build system",
   "main": "./dist/cjs.js",
   "browser": "./dist/browser.js",
@@ -34,16 +34,6 @@
     "url": "https://github.com/rnd7/rum-maker/issues"
   },
   "homepage": "https://github.com/rnd7/rum-maker#readme",
-  "dependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/register": "^7.0.0",
-    "rollup": "^0.66.6",
-    "rollup-plugin-babel": "^4.0.3",
-    "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-node-resolve": "^3.4.0"
-  },
   "dependencies": {},
   "babel": {
     "presets": [
