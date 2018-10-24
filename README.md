@@ -48,4 +48,4 @@ node bin/make-rum.js
 ```
 
 ## License
-See the [LICENSE](https://github.com/rnd7/rum-storage/tree/master/LICENSE.md) file for software license rights and limitations (MIT).
+See the [LICENSE](https://github.com/rnd7/rum-maker/tree/master/LICENSE.md) file for software license rights and limitations (MIT).
