@@ -2,60 +2,28 @@ console.log('@rumMaker index')
 
 //import * as babel from '@babel/core'
 import fs from 'fs'
+import * as rollup from 'rollup'
+import babel from 'rollup-plugin-babel'
+import commonjs from 'rollup-plugin-commonjs'
+import resolve from 'rollup-plugin-node-resolve'
+
 const pkg = JSON.parse(fs.readFileSync('./package.json', "utf8"))
 const DEFAULTS = {
   entry: 'src/index.js',
 }
 const opts = Object.assign({}, DEFAULTS)
 if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker)
-//else throw "No rum.maker entry within package.json."
-
-console.log(opts)
-
 const filename = opts.entry
-
-//const code = fs.readFileSync(filename, "utf8");
-
-/*
-babel.transform(
-  code,
-  {
-    filename,
-    presets: ["@babel/preset-env"],
-    babelrc: false,
-    configFile: false,
-  },
-  (err, result) => {
-    console.log(
-      result.code,
-      result.map,
-      result.ast
-    )
-  }
-);
-*/
-import babel from 'rollup-plugin-babel'
-import commonjs from 'rollup-plugin-commonjs'
-import resolve from 'rollup-plugin-node-resolve'
-import sourcemaps from 'rollup-plugin-sourcemaps';
-//import "@babel/polyfill";
-
 
 let external = []
 if (pkg.devDependencies) external.push(...Object.keys(pkg.devDependencies))
 if (pkg.dependencies) external.push(...Object.keys(pkg.dependencies))
-const browser = !!pkg.browser
-const main = !!pkg.main //cjs module
-const module = !!pkg.module // esm module
-
-import * as rollup from 'rollup'
 const jobs = [
   {
     in:{
       input: filename,
       external,
       plugins: [
-        sourcemaps(),
         babel({
           presets: [
             "@babel/preset-env"
@@ -77,13 +45,11 @@ const jobs = [
         file: pkg.main,
         format: 'cjs',
         sourcemap: true,
-        sourcemapFile: pkg.main+'.map'
       },
       {
         file: pkg.module,
         format: 'es',
         sourcemap: true,
-        sourcemapFile: pkg.module+'.map'
       }
     ]
   },
@@ -113,7 +79,6 @@ const jobs = [
         file: pkg.browser,
         format: 'cjs',
         sourcemap: true,
-        sourcemapFile: pkg.browser+'.map'
       }
     ]
   }
