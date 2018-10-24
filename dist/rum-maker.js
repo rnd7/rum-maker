@@ -48,8 +48,7 @@ var jobs = [{
       babelrc: false,
       configFile: false,
       externalHelpers: false,
-      runtimeHelpers: true,
-      sourceMaps: true
+      runtimeHelpers: true
     }), resolve({
       preferBuiltins: true
     }), commonjs()]
@@ -72,8 +71,7 @@ var jobs = [{
       babelrc: false,
       configFile: false,
       externalHelpers: false,
-      runtimeHelpers: true,
-      sourceMaps: true
+      runtimeHelpers: true
     }), resolve({
       browser: true
     }), commonjs()]
@@ -86,41 +84,15 @@ var jobs = [{
 }];
 
 function build() {
-  // create a bundle
   jobs.forEach(function (job) {
     rollup.rollup(job.in).then(function (bundle) {
-      //console.log(bundle.imports); // an array of external dependencies
-      //console.log(bundle.exports); // an array of names exported by the entry point
-      //console.log(bundle.modules); // an array of module objects
-      console.log(bundle);
       job.out.forEach(function (out) {
-        bundle.generate(out).then(function (gen) {
-          //  console.log(gen)
-          if (out.file) bundle.write(out);
-        });
+        //console.log(bundle)
+        if (out.file) bundle.write(out);
       });
     });
-  }); // generate code and a sourcemap
-  //const { code, map } = await
-  //})
-  // or write the bundle to disk
-  //await
+  });
 }
 
 build();
-/*
-//console.log(code)
-// Load and compile file normally, but skip code generation.
-const { ast } = babel.transformSync(code, { filename, ast: true,
-presets: ["@babel/preset-env"], code: false });
-console.log(ast)
-// Minify the file in a second pass and generate the output code here.
-const { code2, map } = babel.transformFromAstSync(ast, code, {
-  filename,
-  presets: ["@babel/preset-env"],
-  babelrc: false,
-  configFile: false,
-});
-console.log(code2)
-*/
 //# sourceMappingURL=rum-maker.js.map
