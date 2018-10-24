@@ -4,16 +4,7 @@ console.log('@rumMaker index')
 import fs from 'fs'
 const pkg = JSON.parse(fs.readFileSync('./package.json', "utf8"))
 const DEFAULTS = {
-  tasks: [
-    {
-      entry: './src/index.js',
-      target: {
-        esm: true,
-        umd: true,
-        cjs: true
-      }
-    },
-  ]
+  entry: './src/index.js',
 }
 const opts = Object.assign({}, DEFAULTS)
 if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker)
@@ -21,7 +12,7 @@ if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker)
 
 console.log(opts)
 
-const filename = opts.tasks[0].entry
+const filename = opts.entry
 
 //const code = fs.readFileSync(filename, "utf8");
 
