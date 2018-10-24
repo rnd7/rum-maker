@@ -13,19 +13,19 @@ Configure it within the package.json file of your project. If present the entry 
 ```json
 {
   "name": "myPackage",
-  "module": "./dist/my-package-es.js",
-  "main": "./dist/my-package-cjs.js",
-  "browser": "./dist/my-package-browser.js",
+  "module": "dist/my-package-es.js",
+  "main": "dist/my-package-cjs.js",
+  "browser": "dist/my-package-browser.js",
   "rum": {
     "maker": {
-      "entry": "./src/index.js"
+      "entry": "src/index.js"
     }
   },
   "scripts": {
     "build": "make-rum"
   },
   "devDependencies": {
-    "@rnd7/rum-maker": "^1.0.14"
+    "@rnd7/rum-maker": "^1.0.16"
   }
 }
 ```
@@ -41,6 +41,11 @@ Or execute it via npx from your project root, while it still uses the package.js
 npx make-rum
 ```
 
+You might also invoke it by poiting node towards the bin js, though it is only recommended for development purposes or to transpile the rum-maker using rum-maker.
+
+```bash
+node bin/make-rum.js
+```
 
 ## License
 See the [LICENSE](https://github.com/rnd7/rum-storage/tree/master/LICENSE.md) file for software license rights and limitations (MIT).
