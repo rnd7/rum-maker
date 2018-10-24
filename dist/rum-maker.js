@@ -3,11 +3,10 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var fs = _interopDefault(require('fs'));
+var rollup = require('rollup');
 var babel = _interopDefault(require('rollup-plugin-babel'));
 var commonjs = _interopDefault(require('rollup-plugin-commonjs'));
 var resolve = _interopDefault(require('rollup-plugin-node-resolve'));
-var sourcemaps = _interopDefault(require('rollup-plugin-sourcemaps'));
-var rollup = require('rollup');
 
 function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
@@ -35,23 +34,16 @@ var DEFAULTS = {
   entry: 'src/index.js'
 };
 var opts = Object.assign({}, DEFAULTS);
-if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker); //else throw "No rum.maker entry within package.json."
-
-console.log(opts);
-var filename = opts.entry; //const code = fs.readFileSync(filename, "utf8");
-
+if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker);
+var filename = opts.entry;
 var external = [];
 if (pkg.devDependencies) external.push.apply(external, _toConsumableArray(Object.keys(pkg.devDependencies)));
 if (pkg.dependencies) external.push.apply(external, _toConsumableArray(Object.keys(pkg.dependencies)));
-var browser = !!pkg.browser;
-var main = !!pkg.main; //cjs module
-
-var module$1 = !!pkg.module; // esm module
 var jobs = [{
   in: {
     input: filename,
     external: external,
-    plugins: [sourcemaps(), babel({
+    plugins: [babel({
       presets: ["@babel/preset-env"],
       babelrc: false,
       configFile: false,
@@ -65,13 +57,11 @@ var jobs = [{
   out: [{
     file: pkg.main,
     format: 'cjs',
-    sourcemap: true,
-    sourcemapFile: pkg.main + '.map'
+    sourcemap: true
   }, {
     file: pkg.module,
     format: 'es',
-    sourcemap: true,
-    sourcemapFile: pkg.module + '.map'
+    sourcemap: true
   }]
 }, {
   in: {
@@ -91,8 +81,7 @@ var jobs = [{
   out: [{
     file: pkg.browser,
     format: 'cjs',
-    sourcemap: true,
-    sourcemapFile: pkg.browser + '.map'
+    sourcemap: true
   }]
 }];
 
