@@ -6,6 +6,7 @@ var fs = _interopDefault(require('fs'));
 var babel = _interopDefault(require('rollup-plugin-babel'));
 var commonjs = _interopDefault(require('rollup-plugin-commonjs'));
 var resolve = _interopDefault(require('rollup-plugin-node-resolve'));
+var sourcemaps = _interopDefault(require('rollup-plugin-sourcemaps'));
 var rollup = require('rollup');
 
 function _toConsumableArray(arr) {
@@ -31,7 +32,7 @@ function _nonIterableSpread() {
 console.log('@rumMaker index'); //import * as babel from '@babel/core'
 var pkg = JSON.parse(fs.readFileSync('./package.json', "utf8"));
 var DEFAULTS = {
-  entry: './src/index.js'
+  entry: 'src/index.js'
 };
 var opts = Object.assign({}, DEFAULTS);
 if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker); //else throw "No rum.maker entry within package.json."
@@ -50,7 +51,7 @@ var jobs = [{
   in: {
     input: filename,
     external: external,
-    plugins: [babel({
+    plugins: [sourcemaps(), babel({
       presets: ["@babel/preset-env"],
       babelrc: false,
       configFile: false,
