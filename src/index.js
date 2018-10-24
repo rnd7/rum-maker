@@ -4,7 +4,7 @@ console.log('@rumMaker index')
 import fs from 'fs'
 const pkg = JSON.parse(fs.readFileSync('./package.json', "utf8"))
 const DEFAULTS = {
-  entry: './src/index.js',
+  entry: 'src/index.js',
 }
 const opts = Object.assign({}, DEFAULTS)
 if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker)
@@ -37,6 +37,7 @@ babel.transform(
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
+import sourcemaps from 'rollup-plugin-sourcemaps';
 //import "@babel/polyfill";
 
 
@@ -54,6 +55,7 @@ const jobs = [
       input: filename,
       external,
       plugins: [
+        sourcemaps(),
         babel({
           presets: [
             "@babel/preset-env"
