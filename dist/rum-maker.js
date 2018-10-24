@@ -31,20 +31,13 @@ function _nonIterableSpread() {
 console.log('@rumMaker index'); //import * as babel from '@babel/core'
 var pkg = JSON.parse(fs.readFileSync('./package.json', "utf8"));
 var DEFAULTS = {
-  tasks: [{
-    entry: './src/index.js',
-    target: {
-      esm: true,
-      umd: true,
-      cjs: true
-    }
-  }]
+  entry: './src/index.js'
 };
 var opts = Object.assign({}, DEFAULTS);
 if (pkg.rum && pkg.rum.maker) Object.assign(opts, pkg.rum.maker); //else throw "No rum.maker entry within package.json."
 
 console.log(opts);
-var filename = opts.tasks[0].entry; //const code = fs.readFileSync(filename, "utf8");
+var filename = opts.entry; //const code = fs.readFileSync(filename, "utf8");
 
 var external = [];
 if (pkg.devDependencies) external.push.apply(external, _toConsumableArray(Object.keys(pkg.devDependencies)));
